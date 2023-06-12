@@ -8,10 +8,10 @@ const { googleAnalyticsPlugin } = require('@vuepress/plugin-google-analytics')
 const { searchPlugin } = require('@vuepress/plugin-search')
 
 module.exports = {
-  title: 'vue-good-table-next',
+  title: 'vue-good-table-draggable-next',
   description: 'A powerful data table plugin for Vue 3.X',
-  base: '/vue-good-table-next/',
-  head: [['link', { rel: 'icon', href: '/vue-good-table-next/favicon.png' }]],
+  base: '/vue-good-table-draggable-next/',
+  head: [['link', { rel: 'icon', href: '/vue-good-table-draggable-next/favicon.png' }]],
 
   plugins: [
     // { clientAppEnhanceFiles: path.resolve(__dirname, './theme/enhanceApp.js') },
@@ -52,7 +52,7 @@ module.exports = {
     // ],
   ],
   theme: localTheme({
-    repo: 'borisflesch/vue-good-table-next',
+    repo: 'borisflesch/vue-good-table-draggable-next',
     logo: '/vgt-logo.png',
     lastUpdated: true,
     darkMode: false,
@@ -102,11 +102,11 @@ module.exports = {
 }
 
 // module.exports = {
-//   title: 'vue-good-table-next',
+//   title: 'vue-good-table-draggable-next',
 //   description: 'A powerful data table plugin for Vue 3.X',
-//   base: '/vue-good-table-next/',
+//   base: '/vue-good-table-draggable-next/',
 //   head: [
-//     ['link', { rel: 'icon', href: '/vue-good-table-next/favicon.png' }]
+//     ['link', { rel: 'icon', href: '/vue-good-table-draggable-next/favicon.png' }]
 //   ],
 
 //   plugins: [
@@ -139,7 +139,7 @@ module.exports = {
 //   theme: path.resolve(__dirname, './theme'),
 
 // //   themeConfig: {
-// //     repo: 'borisflesch/vue-good-table-next',
+// //     repo: 'borisflesch/vue-good-table-draggable-next',
 // //     logo: '/vgt-logo.png',
 // //     lastUpdated: true,
 // //     darkMode: false,

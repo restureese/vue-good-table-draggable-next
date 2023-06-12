@@ -1,5 +1,5 @@
 {
-  "name": "vue-good-table-next",
+  "name": "vue-good-table-draggable-next",
   "version": "0.2.1",
   "description": "A simple, clean data table for Vue (3.x) with essential features like sorting, column filtering, pagination etc",
   "author": {
@@ -69,7 +69,7 @@
     "table",
     "datatable"
   ],
-  "repository": "github:borisflesch/vue-good-table-next",
+  "repository": "github:borisflesch/vue-good-table-draggable-next",
   "sideEffects": [
     "*.vue",
     "*.css"

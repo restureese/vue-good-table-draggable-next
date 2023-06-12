@@ -6,16 +6,16 @@
 Install with npm:
 
 ```bash
-npm install --save vue-good-table-next
+npm install --save vue-good-table-draggable-next
 ```
 
 Import globally in app:
 
 ```javascript
-import VueGoodTablePlugin from 'vue-good-table-next';
+import VueGoodTablePlugin from 'vue-good-table-draggable-next';
 
 // import the styles
-import 'vue-good-table-next/dist/vue-good-table-next.css'
+import 'vue-good-table-draggable-next/dist/vue-good-table-draggable-next.css'
 
 Vue.use(VueGoodTablePlugin);
 ```
@@ -23,8 +23,8 @@ Vue.use(VueGoodTablePlugin);
 **or** you can import into your component:
 ```js
 // import the styles
-import 'vue-good-table-next/dist/vue-good-table-next.css'
-import { VueGoodTable } from 'vue-good-table-next';
+import 'vue-good-table-draggable-next/dist/vue-good-table-draggable-next.css'
+import { VueGoodTable } from 'vue-good-table-draggable-next';
 
 // add to component
 components: {
@@ -94,10 +94,10 @@ Create your own plugin by creating a file called `vue-good-table.js` inside your
 
 ```
 import Vue from 'vue'
-import VueGoodTablePlugin from 'vue-good-table-next';
+import VueGoodTablePlugin from 'vue-good-table-draggable-next';
 
 // import the styles
-import 'vue-good-table-next/dist/vue-good-table-next.css'
+import 'vue-good-table-draggable-next/dist/vue-good-table-draggable-next.css'
 
 Vue.use(VueGoodTablePlugin);
 ```
@@ -108,7 +108,7 @@ Next we need to declare the plugin inside your `nuxt.config.js` like so:
 
 ```
 plugins: [
-  { src: '~/plugins/vue-good-table-next', ssr: false }
+  { src: '~/plugins/vue-good-table-draggable-next', ssr: false }
 ],
 ```
 

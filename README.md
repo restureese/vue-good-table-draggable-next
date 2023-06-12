@@ -1,16 +1,16 @@
-# Vue-good-table-next
+# vue-good-table-draggable-next
 
 | :warning: WARNING          |
 |:---------------------------|
 | This project is a port of Vue-good-table for Vue 3.x. The current version is stable enough to start developing new projects but work is still in progress and changes could be made in the short-term. Thus the project is not yet intended to be used in a production environment. |
 
-[![npm](https://img.shields.io/npm/dm/vue-good-table-next.svg?style=flat-square)](https://www.npmjs.com/package/vue-good-table-next)
-[![npm](https://img.shields.io/github/package-json/v/borisflesch/vue-good-table.svg?style=flat-square)](https://github.com/borisflesch/vue-good-table-next/releases)
-[![npm](https://img.shields.io/github/license/borisflesch/vue-good-table-next.svg?style=flat-square)](https://github.com/borisflesch/vue-good-table-next/master/LICENSE)
-[![](https://data.jsdelivr.com/v1/package/npm/vue-good-table-next/badge)](https://www.jsdelivr.com/package/npm/vue-good-table-next)
+[![npm](https://img.shields.io/npm/dm/vue-good-table-draggable-next.svg?style=flat-square)](https://www.npmjs.com/package/vue-good-table-draggable-next)
+[![npm](https://img.shields.io/github/package-json/v/borisflesch/vue-good-table.svg?style=flat-square)](https://github.com/borisflesch/vue-good-table-draggable-next/releases)
+[![npm](https://img.shields.io/github/license/borisflesch/vue-good-table-draggable-next.svg?style=flat-square)](https://github.com/borisflesch/vue-good-table-draggable-next/master/LICENSE)
+[![](https://data.jsdelivr.com/v1/package/npm/vue-good-table-draggable-next/badge)](https://www.jsdelivr.com/package/npm/vue-good-table-draggable-next)
 [![Twitter Follow](https://img.shields.io/twitter/follow/borisflesch.svg?label=Follow&style=social)](https://twitter.com/borisflesch)
 
-An easy to use, clean and powerful data table for Vue with essential features like sorting, column filtering, pagination and much more - [borisflesch.github.io/vue-good-table-next/](https://borisflesch.github.io/vue-good-table-next/)
+An easy to use, clean and powerful data table for Vue with essential features like sorting, column filtering, pagination and much more - [borisflesch.github.io/vue-good-table-draggable-next/](https://borisflesch.github.io/vue-good-table-draggable-next/)
 
 <!-- 
 ### Basic Table
@@ -76,28 +76,28 @@ Some example recipes for inspiration
 
 Install with npm:
 ```bash
-npm install vue-good-table-next
+npm install vue-good-table-draggable-next
 ```
 
 Install with npm:
 ```bash
-yarn add vue-good-table-next
+yarn add vue-good-table-draggable-next
 ```
 
 Import globally in app:
 
 ```javascript
-import VueGoodTablePlugin from 'vue-good-table-next';
+import VueGoodTablePlugin from 'vue-good-table-draggable-next';
 
 // import the styles 
-import 'vue-good-table-next/dist/vue-good-table-next.css'
+import 'vue-good-table-draggable-next/dist/vue-good-table-draggable-next.css'
 
 Vue.use(VueGoodTablePlugin);
 ```
 
 Import into your component
 ```js
-import { VueGoodTable } from 'vue-good-table-next';
+import { VueGoodTable } from 'vue-good-table-draggable-next';
 
 // add to component
 components: {
@@ -109,7 +109,7 @@ Import into your component using Typescript
 ```typescript
 // add to component
 components: {
-  'vue-good-table': require('vue-good-table-next').VueGoodTable,
+  'vue-good-table': require('vue-good-table-draggable-next').VueGoodTable,
 }
 ```
 
@@ -118,15 +118,15 @@ components: {
 ![Advanced Screenshot](README/images/vgt-table.advanced.png)
 
 ## Features
-* [Table Search](https://borisflesch.github.io/vue-good-table-next/guide/configuration/search-options.html)
-* [Sorting](https://borisflesch.github.io/vue-good-table-next/guide/configuration/sort-options.html)
-* [Column Filtering](https://borisflesch.github.io/vue-good-table-next/guide/configuration/column-filter-options.html#filteroptions)
-* [Pagination](https://borisflesch.github.io/vue-good-table-next/guide/configuration/pagination-options.html)
-* [Highly Customizable](https://borisflesch.github.io/vue-good-table-next/guide/advanced/#custom-row-template)
-* [Checkbox Table](https://borisflesch.github.io/vue-good-table-next/guide/advanced/checkbox-table.html)
-* [Grouped Rows Table](https://borisflesch.github.io/vue-good-table-next/guide/advanced/grouped-table.html)
-* [Server Powered Table](https://borisflesch.github.io/vue-good-table-next/guide/advanced/remote-workflow.html#why-remote-mode)
-* [Customizable Style and Themes](https://borisflesch.github.io/vue-good-table-next/guide/style-configuration/)
+* [Table Search](https://borisflesch.github.io/vue-good-table-draggable-next/guide/configuration/search-options.html)
+* [Sorting](https://borisflesch.github.io/vue-good-table-draggable-next/guide/configuration/sort-options.html)
+* [Column Filtering](https://borisflesch.github.io/vue-good-table-draggable-next/guide/configuration/column-filter-options.html#filteroptions)
+* [Pagination](https://borisflesch.github.io/vue-good-table-draggable-next/guide/configuration/pagination-options.html)
+* [Highly Customizable](https://borisflesch.github.io/vue-good-table-draggable-next/guide/advanced/#custom-row-template)
+* [Checkbox Table](https://borisflesch.github.io/vue-good-table-draggable-next/guide/advanced/checkbox-table.html)
+* [Grouped Rows Table](https://borisflesch.github.io/vue-good-table-draggable-next/guide/advanced/grouped-table.html)
+* [Server Powered Table](https://borisflesch.github.io/vue-good-table-draggable-next/guide/advanced/remote-workflow.html#why-remote-mode)
+* [Customizable Style and Themes](https://borisflesch.github.io/vue-good-table-draggable-next/guide/style-configuration/)
 
 <!-- ## Upgrade Guide
 Hey there! coming from 1.x? find the [upgrade guide here](https://github.com/xaksis/vue-good-table/wiki/Guide-to-upgrade-from-1.x-to-v2.0) -->
@@ -1254,7 +1254,7 @@ You can provide html for empty state slot as well. Example:
 
 * [Boris Flesch](https://github.com/boris-flesch)
 * [xaksis](https://github.com/xaksis) (initial version of Vue-good-table for Vue 2.x)
-* [Other Contributors](https://github.com/borisflesch/vue-good-table-next/graphs/contributors)
+* [Other Contributors](https://github.com/borisflesch/vue-good-table-draggable-next/graphs/contributors)
 
 ## License
 

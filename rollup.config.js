@@ -92,7 +92,7 @@ function createConfig(format, output, plugins = []) {
   }
 
   const nodePlugins = [resolve(), commonjs(), VuePlugin({ css: false }), scss({
-    output: 'dist/vue-good-table-next.css'
+    output: 'dist/vue-good-table-draggable-next.css'
   })];
 
   return {

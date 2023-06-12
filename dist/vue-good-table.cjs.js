@@ -1,5 +1,5 @@
 /*!
-  * vue-good-table-next v0.2.0
+  * vue-good-table-draggable-next v0.2.0
   * (c) 2021-present Boris Flesch <boris@singlequote.net>
   * (c) 2017-2021 xaksis <shay@crayonbits.com>
   * @license MIT
