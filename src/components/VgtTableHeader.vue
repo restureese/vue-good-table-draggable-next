@@ -1,57 +1,63 @@
 <template>
-<thead>
-  <tr>
-    <th scope="col" v-if="lineNumbers" class="line-numbers"></th>
-    <th scope="col" v-if="selectable" class="vgt-checkbox-col">
-      <input
-        type="checkbox"
-        :checked="allSelected"
-        :indeterminate.prop="allSelectedIndeterminate"
-        @change="toggleSelectAll" />
-    </th>
-    <th
-      scope="col"
-      v-if="expandRowsEnabled"
-      class="vgt-checkbox-col">
-      <a href="" @click.prevent="toggleExpandRowsAll" class="vgt-wrap__expander">
-        (+)
-      </a>
-    </th>
-    <template
-        v-for="(column, index) in columns"
-        :key="index"
+  <thead>
+    <draggable :list="columns" tag="tr" :item-key="key => key">
+      <template #header>
+        <th scope="col" v-if="lineNumbers" class="line-numbers"></th>
+        <th scope="col" v-if="selectable" class="vgt-checkbox-col">
+          <input
+            type="checkbox"
+            :checked="allSelected"
+            :indeterminate.prop="allSelectedIndeterminate"
+            @change="toggleSelectAll"
+          />
+        </th>
+        <th scope="col" v-if="expandRowsEnabled" class="vgt-checkbox-col">
+          <a
+            href=""
+            @click.prevent="toggleExpandRowsAll"
+            class="vgt-wrap__expander"
+          >
+            (+)
+          </a>
+        </th>
+      </template>
+      <template #item="{ element, index }">
+        <th
+          v-if="!element.hidden"
+          scope="col"
+          :title="element.tooltip"
+          :class="getHeaderClasses(element, index)"
+          :style="columnStyles[index]"
+          :aria-sort="getColumnSortLong(element)"
+          :aria-controls="`col-${index}`"
+        >
+          <slot name="table-column" :column="element">
+            {{ element.label }}
+          </slot>
+          <button
+            v-if="isSortableColumn(element)"
+            @click="sort($event, element)"
+          >
+            <span class="sr-only">
+              Sort table by {{ element.label }} in
+              {{ getColumnSortLong(element) }} order
+            </span>
+          </button>
+        </th>
+      </template>
+    </draggable>
+
+    <vgt-filter-row
+      ref="filter-row"
+      @filter-changed="filterRows"
+      :global-search-enabled="searchEnabled"
+      :line-numbers="lineNumbers"
+      :expand-rows-enabled="expandRowsEnabled"
+      :selectable="selectable"
+      :columns="columns"
+      :mode="mode"
+      :typed-columns="typedColumns"
     >
-      <th v-if="!column.hidden"
-        scope="col"
-        :title="column.tooltip"
-        :class="getHeaderClasses(column, index)"
-        :style="columnStyles[index]"
-        :aria-sort="getColumnSortLong(column)"
-        :aria-controls="`col-${index}`"
-      >
-        <slot name="table-column" :column="column">
-          {{column.label}}
-        </slot>
-        <button
-        v-if="isSortableColumn(column)"
-        @click="sort($event, column)">
-        <span class="sr-only">
-          Sort table by {{ column.label }} in {{ getColumnSortLong(column) }} order
-          </span>
-        </button>
-      </th>
-    </template>
-  </tr>
-  <vgt-filter-row
-    ref="filter-row"
-    @filter-changed="filterRows"
-    :global-search-enabled="searchEnabled"
-    :line-numbers="lineNumbers"
-    :expand-rows-enabled="expandRowsEnabled"
-    :selectable="selectable"
-    :columns="columns"
-    :mode="mode"
-    :typed-columns="typedColumns">
       <template #column-filter="slotProps">
         <slot
           name="column-filter"
@@ -60,13 +66,14 @@
         >
         </slot>
       </template>
-  </vgt-filter-row>
-</thead>
+    </vgt-filter-row>
+  </thead>
 </template>
 
 <script>
-import VgtFilterRow from './VgtFilterRow.vue';
-import { primarySort, secondarySort } from './utils/sort';
+import draggable from 'vuedraggable'
+import VgtFilterRow from './VgtFilterRow.vue'
+import { primarySort, secondarySort } from './utils/sort'
 
 export default {
   name: 'VgtTableHeader',
@@ -130,21 +137,21 @@ export default {
   watch: {
     columns: {
       handler() {
-        this.setColumnStyles();
+        this.setColumnStyles()
       },
       immediate: true,
-      deep: true
+      deep: true,
     },
     tableRef: {
       handler() {
-        this.setColumnStyles();
+        this.setColumnStyles()
       },
       immediate: true,
     },
     paginated: {
       handler() {
         if (this.tableRef) {
-          this.setColumnStyles();
+          this.setColumnStyles()
         }
       },
       deep: true,
@@ -156,57 +163,54 @@ export default {
       lineNumberThStyle: {},
       columnStyles: [],
       sorts: [],
-      ro: null
-    };
+      ro: null,
+    }
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     reset() {
-      this.$refs['filter-row'].reset(true);
+      this.$refs['filter-row'].reset(true)
     },
     toggleExpandRowsAll() {
-      this.$emit('toggle-expand-rows-all');
+      this.$emit('toggle-expand-rows-all')
     },
     toggleSelectAll() {
-      this.$emit('toggle-select-all');
+      this.$emit('toggle-select-all')
     },
     isSortableColumn(column) {
-      const { sortable } = column;
-      const isSortable = typeof sortable === 'boolean' ? sortable : this.sortable;
-      return isSortable;
+      const { sortable } = column
+      const isSortable =
+        typeof sortable === 'boolean' ? sortable : this.sortable
+      return isSortable
     },
     sort(e, column) {
       //* if column is not sortable, return right here
-      if (!this.isSortableColumn(column)) return;
+      if (!this.isSortableColumn(column)) return
 
       if (e.shiftKey && this.multipleColumnSort) {
-        this.sorts = secondarySort(this.sorts, column);
+        this.sorts = secondarySort(this.sorts, column)
       } else {
-        this.sorts = primarySort(this.sorts, column);
+        this.sorts = primarySort(this.sorts, column)
       }
-      this.$emit('sort-change', this.sorts);
+      this.$emit('sort-change', this.sorts)
     },
 
     setInitialSort(sorts) {
-      this.sorts = sorts;
-      this.$emit('sort-change', this.sorts);
+      this.sorts = sorts
+      this.$emit('sort-change', this.sorts)
     },
 
     getColumnSort(column) {
       for (let i = 0; i < this.sorts.length; i += 1) {
         if (this.sorts[i].field === column.field) {
-          return this.sorts[i].type || 'asc';
+          return this.sorts[i].type || 'asc'
         }
       }
-      return null;
+      return null
     },
 
     getColumnSortLong(column) {
-      return this.getColumnSort(column) === 'asc'
-        ? 'ascending'
-        : 'descending'
+      return this.getColumnSort(column) === 'asc' ? 'ascending' : 'descending'
     },
 
     getHeaderClasses(column, index) {
@@ -214,44 +218,44 @@ export default {
         sortable: this.isSortableColumn(column),
         'sorting sorting-desc': this.getColumnSort(column) === 'desc',
         'sorting sorting-asc': this.getColumnSort(column) === 'asc',
-      });
-      return classes;
+      })
+      return classes
     },
 
     filterRows(columnFilters) {
-      this.$emit('filter-changed', columnFilters);
+      this.$emit('filter-changed', columnFilters)
     },
 
     getWidthStyle(dom) {
       if (window && window.getComputedStyle && dom) {
-        const cellStyle = window.getComputedStyle(dom, null);
+        const cellStyle = window.getComputedStyle(dom, null)
         return {
           width: cellStyle.width,
-        };
+        }
       }
       return {
         width: 'auto',
-      };
+      }
     },
 
     setColumnStyles() {
-      const colStyles = [];
+      const colStyles = []
       for (let i = 0; i < this.columns.length; i++) {
         if (this.tableRef) {
-          let skip = 0;
-          if (this.selectable) skip++;
-          if (this.lineNumbers) skip++;
-          const cell = this.tableRef.rows[0].cells[i + skip];
-          colStyles.push(this.getWidthStyle(cell));
+          let skip = 0
+          if (this.selectable) skip++
+          if (this.lineNumbers) skip++
+          const cell = this.tableRef.rows[0].cells[i + skip]
+          colStyles.push(this.getWidthStyle(cell))
         } else {
           colStyles.push({
             minWidth: this.columns[i].width ? this.columns[i].width : 'auto',
             maxWidth: this.columns[i].width ? this.columns[i].width : 'auto',
             width: this.columns[i].width ? this.columns[i].width : 'auto',
-          });
+          })
         }
       }
-      this.columnStyles = colStyles;
+      this.columnStyles = colStyles
     },
 
     getColumnStyle(column, index) {
@@ -259,17 +263,17 @@ export default {
         minWidth: column.width ? column.width : 'auto',
         maxWidth: column.width ? column.width : 'auto',
         width: column.width ? column.width : 'auto',
-      };
+      }
       //* if fixed header we need to get width from original table
       if (this.tableRef) {
-        if (this.selectable) index++;
-        if (this.lineNumbers) index++;
+        if (this.selectable) index++
+        if (this.lineNumbers) index++
 
-        const cell = this.tableRef.rows[0].cells[index];
-        const cellStyle = window.getComputedStyle(cell, null);
-        styleObject.width = cellStyle.width;
+        const cell = this.tableRef.rows[0].cells[index]
+        const cellStyle = window.getComputedStyle(cell, null)
+        styleObject.width = cellStyle.width
       }
-      return styleObject;
+      return styleObject
     },
   },
   mounted() {
@@ -277,28 +281,31 @@ export default {
       // We're going to watch the parent element for resize events, and calculate column widths if it changes
       if ('ResizeObserver' in window) {
         this.ro = new ResizeObserver(() => {
-            this.setColumnStyles();
-        });
-        this.ro.observe(this.$parent.$el);
+          this.setColumnStyles()
+        })
+        this.ro.observe(this.$parent.$el)
 
         // If this is a fixed-header table, we want to observe each column header from the non-fixed header.
         // You can imagine two columns swapping widths, which wouldn't cause the above to trigger.
         // This gets the first tr element of the primary table header, and iterates through its children (the th elements)
         if (this.tableRef) {
-          Array.from(this.$parent.$refs['table-header-primary'].$el.children[0].children).forEach((header) => {
-            this.ro.observe(header);
+          Array.from(
+            this.$parent.$refs['table-header-primary'].$el.children[0].children
+          ).forEach(header => {
+            this.ro.observe(header)
           })
         }
       }
-    });
+    })
   },
   beforeUnmount() {
     if (this.ro) {
-      this.ro.disconnect();
+      this.ro.disconnect()
     }
   },
   components: {
+    draggable,
     'vgt-filter-row': VgtFilterRow,
   },
-};
+}
 </script>
