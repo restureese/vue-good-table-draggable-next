@@ -1,6 +1,6 @@
 <template>
   <thead>
-    <draggable :list="columns" tag="tr" :item-key="key => key">
+    <draggable tag="tr" :list="columns">
       <template #header>
         <th scope="col" v-if="lineNumbers" class="line-numbers"></th>
         <th scope="col" v-if="selectable" class="vgt-checkbox-col">
@@ -21,26 +21,24 @@
           </a>
         </th>
       </template>
-      <template #item="{ element, index }">
+
+      <template v-for="(column, index) in columns" :key="index">
         <th
-          v-if="!element.hidden"
+          v-if="!column.hidden"
           scope="col"
-          :title="element.tooltip"
-          :class="getHeaderClasses(element, index)"
+          :title="column.tooltip"
+          :class="getHeaderClasses(column, index)"
           :style="columnStyles[index]"
-          :aria-sort="getColumnSortLong(element)"
+          :aria-sort="getColumnSortLong(column)"
           :aria-controls="`col-${index}`"
         >
-          <slot name="table-column" :column="element">
-            {{ element.label }}
+          <slot name="table-column" :column="column">
+            {{ column.label }}
           </slot>
-          <button
-            v-if="isSortableColumn(element)"
-            @click="sort($event, element)"
-          >
+          <button v-if="isSortableColumn(column)" @click="sort($event, column)">
             <span class="sr-only">
-              Sort table by {{ element.label }} in
-              {{ getColumnSortLong(element) }} order
+              Sort table by {{ column.label }} in
+              {{ getColumnSortLong(column) }} order
             </span>
           </button>
         </th>
@@ -71,7 +69,7 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+import { VueDraggableNext } from 'vue-draggable-next'
 import VgtFilterRow from './VgtFilterRow.vue'
 import { primarySort, secondarySort } from './utils/sort'
 
@@ -304,7 +302,7 @@ export default {
     }
   },
   components: {
-    draggable,
+    draggable: VueDraggableNext,
     'vgt-filter-row': VgtFilterRow,
   },
 }
